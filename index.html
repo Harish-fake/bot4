@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arunprakash M | Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #08080e;
+      --bg-secondary: #0e0e18;
+      --bg-card: #14141f;
+      --bg-card-hover: #1c1c2e;
+      --text-primary: #e8e8f0;
+      --text-secondary: #9898b0;
+      --text-muted: #5c5c78;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --accent-secondary: #00cec9;
+      --accent-gradient: linear-gradient(135deg, #6c5ce7, #00cec9);
+      --accent-glow: rgba(108, 92, 231, 0.12);
+      --accent-glow-strong: rgba(108, 92, 231, 0.25);
+      --border: #1e1e32;
+      --border-light: #2a2a44;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 8px 40px rgba(108, 92, 231, 0.15);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    a {
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover {
+      color: var(--accent-secondary);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ─── Navbar ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(8, 8, 14, 0.8);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border-bottom: 1px solid var(--border);
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--accent-glow);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-bg-glow-2 {
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 206, 201, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-light);
+      background: var(--accent-glow);
+      padding: 6px 18px 6px 14px;
+      border-radius: var(--radius-full);
+      margin-bottom: 24px;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      letter-spacing: 0.03em;
+    }
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 12px;
+      letter-spacing: -0.04em;
+    }
+    .hero h1 .gradient-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-bottom: 32px;
+      font-size: 0.88rem;
+    }
+    .hero-contact a,
+    .hero-contact span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+    .hero-contact a:hover {
+      color: var(--accent-light);
+    }
+    .hero-contact svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      letter-spacing: 0.01em;
+    }
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(108, 92, 231, 0.35);
+    }
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-light);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      transform: translateY(-3px);
+    }
+
+    /* ─── Hero Profile Image ─── */
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .profile-frame {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border-light);
+      box-shadow:
+        0 0 0 4px rgba(108, 92, 231, 0.15),
+        0 0 60px rgba(108, 92, 231, 0.12);
+      transition: all var(--transition);
+      position: relative;
+    }
+    .profile-frame:hover {
+      border-color: var(--accent);
+      box-shadow:
+        0 0 0 4px rgba(108, 92, 231, 0.25),
+        0 0 80px rgba(108, 92, 231, 0.2);
+      transform: scale(1.02);
+    }
+    .profile-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ─── Section ─── */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .section-title .highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Summary ─── */
+    .summary-text {
+      font-size: 1.08rem;
+      color: var(--text-secondary);
+      max-width: 860px;
+      line-height: 1.8;
+      padding: 32px 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    /* ─── Stats ─── */
+    .stats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      min-width: 200px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      transition: all var(--transition);
+    }
+    .stat-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ─── Education ─── */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-gradient);
+    }
+    .edu-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .edu-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .edu-card .edu-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 8px;
+    }
+    .edu-card .edu-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── Skills ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .skill-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      transition: all var(--transition);
+    }
+    .skill-category:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .skill-category h4 {
+      font-size: 0.82rem;
+      color: var(--accent-light);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-tag {
+      background: rgba(108, 92, 231, 0.08);
+      color: var(--text-primary);
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(108, 92, 231, 0.12);
+      transition: all var(--transition);
+    }
+    .skill-tag:hover {
+      background: rgba(108, 92, 231, 0.18);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Projects ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+    .project-card:hover::after {
+      opacity: 1;
+    }
+    .project-card .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .project-card .project-links {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .project-card .project-links a {
+      color: var(--text-muted);
+      padding: 6px;
+      border-radius: 6px;
+      transition: all var(--transition);
+      display: flex;
+    }
+    .project-card .project-links a:hover {
+      color: var(--accent-light);
+      background: var(--accent-glow);
+    }
+    .project-card .project-links svg {
+      width: 20px;
+      height: 20px;
+    }
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+      flex: 1;
+      line-height: 1.65;
+    }
+    .project-card .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .project-card .project-stack span {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-secondary);
+      background: rgba(0, 206, 201, 0.07);
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 206, 201, 0.1);
+    }
+
+    /* ─── GitHub Repos ─── */
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .repo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .repo-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .repo-card .repo-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .repo-card .repo-header svg {
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .repo-card .repo-header a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .repo-card .repo-header a:hover {
+      color: var(--accent-light);
+    }
+    .repo-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+    .repo-card .repo-footer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .repo-card .repo-lang {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .repo-card .repo-lang .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* ─── Hackathons ─── */
+    .hackathon-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 24px;
+    }
+    .hackathon-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .hackathon-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .hackathon-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-secondary);
+      background: rgba(0, 206, 201, 0.08);
+      padding: 4px 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 206, 201, 0.15);
+      margin-bottom: 12px;
+    }
+    .hackathon-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .hackathon-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .hackathon-card .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .hackathon-card .github-link svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* ─── Achievements ─── */
+    .achievements-list {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+    }
+    .achievements-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 24px 28px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      transition: all var(--transition);
+      line-height: 1.7;
+    }
+    .achievements-list li:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+    }
+    .achievements-list li .icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+    .achievements-list li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ─── Certificates ─── */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 22px 26px;
+      transition: all var(--transition);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .cert-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+    .cert-card .cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .cert-card .cert-info h4 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+    .cert-card .cert-info span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .cert-card .cert-link {
+      color: var(--accent-light);
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      transition: all var(--transition);
+    }
+    .cert-card .cert-link:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      text-align: center;
+    }
+    footer .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    footer .social-links a {
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      transition: all var(--transition);
+      display: flex;
+    }
+    footer .social-links a:hover {
+      color: var(--accent-light);
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      transform: translateY(-3px);
+    }
+    footer .social-links svg {
+      width: 20px;
+      height: 20px;
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ─── Animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-image {
+        order: -1;
+      }
+      .profile-frame {
+        width: 200px;
+        height: 200px;
+      }
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-contact {
+        justify-content: center;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .stats-grid {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(8, 8, 14, 0.98);
+        backdrop-filter: blur(24px);
+        border-bottom: 1px solid var(--border);
+        padding: 8px 0;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        padding: 14px 24px;
+        border-radius: 0;
+      }
+      .nav-toggle {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      .section-title {
+        font-size: 1.7rem;
+      }
+      .section-header {
+        margin-bottom: 32px;
+      }
+      .projects-grid,
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
+      .hackathon-cards {
+        grid-template-columns: 1fr;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+      section {
+        padding: 60px 0;
+      }
+      .summary-text {
+        padding: 24px 24px;
+      }
+      .stats-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .edu-card {
+        padding: 28px 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero-contact {
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        padding: 0 16px;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .profile-frame {
+        width: 160px;
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Navbar ═══ -->
+  <nav>
+    <div class="container">
+      <div class="nav-logo">AP</div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#github">GitHub</a></li>
+        <li><a href="#hackathons">Hackathons</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="hero" id="about">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-bg-glow-2"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Open to Full-Stack Developer Roles
+        </div>
+        <h1>Hi, I'm <span class="gradient-text">Arunprakash M</span></h1>
+        <p class="hero-subtitle">
+          Full-Stack Developer &amp; CSE student building scalable web apps,
+          AI-powered solutions, and clean, performant code.
+        </p>
+        <div class="hero-contact">
+          <a href="mailto:arunprakashmscs@gmail.com">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            arunprakashmscs@gmail.com
+          </a>
+          <span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Tiruchirappalli, TN
+          </span>
+          <span>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            +91 82208 03626
+          </span>
+        </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">See My Work</a>
+          <a href="Arunprakash-M-Resume.pdf" class="btn btn-secondary" target="_blank">Download Resume</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="profile-frame">
+          <img src="profile.png" alt="Arunprakash M">
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Summary ═══ -->
+  <section>
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Building <span class="highlight">digital solutions</span> that matter</h2>
+      </div>
+      <p class="summary-text">
+        Computer Science Engineering student with hands-on experience in full-stack web development,
+        Java, and AI-powered applications. Skilled in MERN, Python, and REST API development with
+        a strong understanding of OOPs, DBMS, and problem-solving. Experienced in building scalable
+        projects, participating in hackathons, and developing real-world software solutions.
+        Eager to contribute technical skills and continuous learning in a Full Stack Engineer role.
+      </p>
+      
+    </div>
+  </section>
+
+  <!-- ═══ Education ═══ -->
+  <section id="education">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Education</div>
+        <h2 class="section-title">Academic <span class="highlight">Background</span></h2>
+      </div>
+      <div class="edu-card">
+        <h3>Bachelor of Computer Science and Engineering</h3>
+        <div class="edu-meta">
+          <span>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            K. Ramakrishnan College of Engineering, Trichy
+          </span>
+          <span>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            CGPA: 7.53
+          </span>
+          <span>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            2023 – 2027
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Skills ═══ -->
+  <section id="skills">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Skills</div>
+        <h2 class="section-title">Technical <span class="highlight">Expertise</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category reveal reveal-delay-1">
+          <h4>Languages</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">English</span>
+            <span class="skill-tag">Tamil</span>
+            <span class="skill-tag">German</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-2">
+          <h4>Programming</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">TypeScript</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-3">
+          <h4>Frontend</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">AngularJS</span>
+            <span class="skill-tag">HTML/CSS</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-4">
+          <h4>Backend &amp; DB</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">REST APIs</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-1">
+          <h4>Cloud &amp; Tools</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Docker</span>
+          </div>
+        </div>
+        <div class="skill-category reveal reveal-delay-2">
+          <h4>AI &amp; APIs</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Gemini AI</span>
+            <span class="skill-tag">Dialogflow</span>
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Twilio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Projects ═══ -->
+  <section id="projects">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Projects</div>
+        <h2 class="section-title">Featured <span class="highlight">Projects</span></h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-header">
+            <h3>Learning Path Finder</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/learning-path-finder" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>AI-powered personalised learning platform with skill assessment, progress tracking, and personalised learning recommendations using Google Gemini AI.</p>
+          <div class="project-stack">
+            <span>React</span>
+            <span>Node.js</span>
+            <span>Express</span>
+            <span>MongoDB</span>
+            <span>Gemini AI</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header">
+            <h3>Quiz App (MERN + Gemini)</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/quiz-app-mern-gemini" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>Automated quiz generator app powered by Gemini AI. Features secure authentication, real-time score tracking, and AI-based question generation.</p>
+          <div class="project-stack">
+            <span>MongoDB</span>
+            <span>Express</span>
+            <span>React</span>
+            <span>Node.js</span>
+            <span>Gemini API</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header">
+            <h3>Faculty Availability System</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Faculty_Availability_Checking_System" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>Streamlined faculty scheduling with real-time availability tracking, authentication, and efficient data management to improve communication.</p>
+          <div class="project-stack">
+            <span>JavaScript</span>
+            <span>Java</span>
+            <span>CSS</span>
+            <span>HTML</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-4">
+          <div class="project-header">
+            <h3>Feedback Management System</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Feedback-Management-System" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>Feedback management system for both Academic and Infrastructure domains. Built with TypeScript and Java for robust data handling.</p>
+          <div class="project-stack">
+            <span>TypeScript</span>
+            <span>Java</span>
+            <span>HTML</span>
+            <span>CSS</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-header">
+            <h3>QR Generator</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/QR-Generator" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>React-based QR Code generator with a clean, responsive UI for creating secure QR codes on the fly.</p>
+          <div class="project-stack">
+            <span>React</span>
+            <span>JavaScript</span>
+            <span>CSS</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header">
+            <h3>Loan Tracker App</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Loan_Tracker_App" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>React Native mobile app for real-time loan tracking with geo-tagged and time-stamped verification for SIH 2025.</p>
+          <div class="project-stack">
+            <span>React Native</span>
+            <span>Firebase</span>
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-3">
+          <div class="project-header">
+            <h3>Secure QR Payment</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/secure-qr-payment" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>React-based secure QR payment system with an intuitive frontend for generating and processing payment QR codes.</p>
+          <div class="project-stack">
+            <span>React</span>
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-4">
+          <div class="project-header">
+            <h3>Smart Product Recommendation</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Smart-Product-Recommendation-Agent" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>AI-powered product recommendation agent that intelligently suggests products based on user preferences and behavior.</p>
+          <div class="project-stack">
+            <span>JavaScript</span>
+            <span>CSS</span>
+            <span>HTML</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-1">
+          <div class="project-header">
+            <h3>Avex Installers</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Avex_Installers" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>Responsive installer service platform with clean UI/UX and structured navigation for service-based businesses.</p>
+          <div class="project-stack">
+            <span>React</span>
+            <span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal reveal-delay-2">
+          <div class="project-header">
+            <h3>Healthcare Chatbot</h3>
+            <div class="project-links">
+              <a href="https://github.com/ARUNPRAKASH-12/Healtcare_chatbot_via_Whatsapp" target="_blank" title="GitHub">
+                <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+              </a>
+            </div>
+          </div>
+          <p>Multilingual public health chatbot integrated with WhatsApp using Dialogflow and Twilio for public health awareness (SIH 2025).</p>
+          <div class="project-stack">
+            <span>Python</span>
+            <span>Dialogflow</span>
+            <span>Twilio</span>
+            <span>MongoDB</span>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GitHub Repositories ═══ -->
+  <section id="github">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">GitHub</div>
+        <h2 class="section-title">All <span class="highlight">Repositories</span></h2>
+      </div>
+      <div class="repo-grid">
+        <div class="repo-card reveal reveal-delay-1">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/learning-path-finder" target="_blank">learning-path-finder</a>
+          </div>
+          <p>AI-powered personalised learning platform using Gemini AI</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-2">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/quiz-app-mern-gemini" target="_blank">quiz-app-mern-gemini</a>
+          </div>
+          <p>Automated quiz generator with Gemini AI</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-3">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Faculty_Availability_Checking_System" target="_blank">Faculty_Availability_Checking_System</a>
+          </div>
+          <p>Faculty scheduling with real-time availability tracking</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-4">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Feedback-Management-System" target="_blank">Feedback-Management-System</a>
+          </div>
+          <p>Feedback management for Academic &amp; Infrastructure</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#3178c6"></span> TypeScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-1">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Loan_Tracker_App" target="_blank">Loan_Tracker_App</a>
+          </div>
+          <p>Real-time loan tracking with geo-tagged verification (SIH 2025)</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-2">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Healtcare_chatbot_via_Whatsapp" target="_blank">Healtcare_chatbot_via_Whatsapp</a>
+          </div>
+          <p>Multilingual public health chatbot via WhatsApp</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#3572A5"></span> Python</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-3">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/QR-Generator" target="_blank">QR-Generator</a>
+          </div>
+          <p>React-based QR Code generator with clean UI</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-4">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/secure-qr-payment" target="_blank">secure-qr-payment</a>
+          </div>
+          <p>Secure QR payment system with React frontend</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-1">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Smart-Product-Recommendation-Agent" target="_blank">Smart-Product-Recommendation-Agent</a>
+          </div>
+          <p>AI-driven product recommendation agent</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+        <div class="repo-card reveal reveal-delay-2">
+          <div class="repo-header">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            <a href="https://github.com/ARUNPRAKASH-12/Avex_Installers" target="_blank">Avex_Installers</a>
+          </div>
+          <p>Installer service platform with responsive UI</p>
+          <div class="repo-footer">
+            <span class="repo-lang"><span class="lang-dot" style="background:#f1e05a"></span> JavaScript</span>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Hackathons ═══ -->
+  <section id="hackathons">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Hackathons</div>
+        <h2 class="section-title">Smart India Hackathon <span class="highlight">2025</span></h2>
+      </div>
+      <div class="hackathon-cards">
+        <div class="hackathon-card reveal reveal-delay-1">
+          <div class="hackathon-badge">SIH 2025</div>
+          <h3>Loan Utilization Tracking App</h3>
+          <p>React Native mobile app for real-time loan tracking with geo-tagged and time-stamped verification. Integrated Firebase for authentication, data storage, and secure backend operations.</p>
+          <a href="https://github.com/ARUNPRAKASH-12/Loan_Tracker_App" target="_blank" class="github-link">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+        <div class="hackathon-card reveal reveal-delay-2">
+          <div class="hackathon-badge">SIH 2025</div>
+          <h3>AI-driven Multilingual Public Health Chatbot</h3>
+          <p>Built a multilingual chatbot using Dialogflow, Twilio, and WhatsApp for public health awareness. Uses MongoDB for conversation management and user data handling.</p>
+          <a href="https://github.com/ARUNPRAKASH-12/Healtcare_chatbot_via_Whatsapp" target="_blank" class="github-link">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Achievements ═══ -->
+  <section id="achievements">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Achievements</div>
+        <h2 class="section-title">Recognition &amp; <span class="highlight">Awards</span></h2>
+      </div>
+      <ul class="achievements-list">
+        <li class="reveal reveal-delay-1">
+          <span class="icon">&#127942;</span>
+          Secured <strong>Second Prize</strong> in <strong>"Hahes Over Roses 3.0"</strong> at MindKraft 2026, an International Level Techno-Management Fest conducted by Karunya Institute of Technology and Sciences, Coimbatore.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ Certificates ═══ -->
+  <section id="certificates">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-label">Certificates</div>
+        <h2 class="section-title">Professional <span class="highlight">Credentials</span></h2>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-icon">&#9729;</div>
+          <div class="cert-info">
+            <h4>AWS Certified Cloud Practitioner</h4>
+            <span>AWS</span>
+          </div>
+          <a href="#" class="cert-link">View</a>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-3">
+          <div class="cert-icon">&#128218;</div>
+          <div class="cert-info">
+            <h4>Fundamentals of OOP</h4>
+            <span>NPTEL</span>
+          </div>
+          <a href="#" class="cert-link">View</a>
+        </div>
+        <div class="cert-card reveal reveal-delay-4">
+          <div class="cert-icon">&#9000;</div>
+          <div class="cert-info">
+            <h4>Java Programming</h4>
+            <span>NPTEL</span>
+          </div>
+          <a href="#" class="cert-link">View</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="https://github.com/ARUNPRAKASH-12" target="_blank" title="GitHub">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/arunprakash-m-8272b22a3" target="_blank" title="LinkedIn">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:arunprakashmscs@gmail.com" title="Email">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </a>
+      </div>
+      <p>&copy; 2026 Arunprakash M &mdash; Built with code, caffeine &amp; curiosity</p>
+    </div>
+  </footer>
+
+  <script>
+    // Try common filename/case variants to avoid broken avatars on case-sensitive hosts.
+    (function () {
+      const profileImage = document.getElementById('profile-image');
+      if (!profileImage) return;
+
+      const fallbackSources = [
+        './profile.png',
+        './Profile.png',
+        './profile.jpg',
+        './Profile.jpg',
+        './profile.jpeg',
+        './Profile.jpeg'
+      ];
+
+      let currentIndex = 0;
+      profileImage.addEventListener('error', function () {
+        currentIndex += 1;
+        if (currentIndex < fallbackSources.length) {
+          profileImage.src = fallbackSources[currentIndex];
+        }
+      });
+    })();
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Intersection Observer for scroll reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
